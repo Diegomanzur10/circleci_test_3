@@ -1,0 +1,17 @@
+version: 2.1
+
+jobs:
+  built:
+    working_directory: ~/circleci-python
+    docker:
+      - image: "circleci/python:3.8"
+    steps:
+      - checkout
+      - run: echo 'export PYTHONPATH="${PYTHONPATH}:{HOME}:/circleci-python"' >> $BASH_ENV
+      - run: python -c "import sys; print(sys.path)"
+
+
+workflows:
+  first_build:
+    jobs:
+      - built
